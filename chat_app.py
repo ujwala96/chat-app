@@ -47,8 +47,12 @@ def main():
                     initial_message = False
                 else:
                     msg_val = input("Enter Msg: ")
+                    messages_data = get_thread_messages(thread_id, database=database_name)
+                    history = []
+                    for each_message in messages_data:
+                        history.append({"role": each_message[1], "content": each_message[2]})
                     response = update_thread(
-                        thread_id, database=database_name, message=msg_val
+                        thread_id, database=database_name, message=msg_val, history=history
                     )
                     print(response)
         elif choice == 1:
